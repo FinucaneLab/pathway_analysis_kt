@@ -78,7 +78,8 @@ def munge_inrich(inrich_results,geneset_list,x):
     out = os.path.join(inrich_results,x+'exclude.munged')
     x = x.strip('.UKB_460K')
     filepath = os.path.join(inrich_results,x+'c1.all.v3.0.entrez.msig.set.out.inrich')
-    command="/broad/finucanelab/ktashman/inrich_analyses/scripts/grep.sh {0} {1} {2}".format(length,filepath,out)
+    grep_chars = 'PCORR'
+    command="/broad/finucanelab/ktashman/inrich_analyses/scripts/grep.sh {0} {1} {2} {3}".format(length,filepath,out,grep_chars)
     p = subprocess.Popen(command.split(), shell=False)
     p.communicate()
     p.wait()
