@@ -107,14 +107,14 @@ reuse -q .anaconda-5.0.1
 #### **Critiques and Solutions** :
 
 ##### 1. Having to make a directory each time for a new analysis:
-  ##### -**Solution** : Add a flag to pipeline script that checks if the path already exists and if not creates the base folder for the analysis and the rest of the subfolders
+  #####  - **Solution** : Add a flag to pipeline script that checks if the path already exists and if not creates the base folder for the analysis and the rest of the subfolders
 
 ##### 2. The json file is clunky and confusing because of the full paths:
-  ##### -**Solution** : Create an arg that is the base for the rest of the paths, this way the rest of the paths can just be the flag for the new directory plus the folder name
+  #####  - **Solution** : Create an arg that is the base for the rest of the paths, this way the rest of the paths can just be the flag for the new directory plus the folder name
            -This might remove the need for a lot of the items in this json because once it has the base and the new directory name, the subfolders are the same each analysis
 
 ##### 3. Should create one script for null,causal and causal_sparse simulations:
-  ##### -**Solution** : This requires adding "sparse" and "pathway" which are flags  for the `prep_for_simulations.py` script to the overall script, not sure what the best way to do this is, perhaps doing a join where it can be either a space or the command you want to add?
+  #####  - **Solution** : This requires adding "sparse" and "pathway" which are flags  for the `prep_for_simulations.py` script to the overall script, not sure what the best way to do this is, perhaps doing a join where it can be either a space or the command you want to add?
 
 ##### 4. Should revert to local S-LDSC at some point so that I'm not jumping between the cluster and cloud:
-  ##### -**Solution** : just do it. (My priority is quite low on the cluster, might wait until Goosilon is ready)
+  #####  - **Solution** : just do it. (My priority is quite low on the cluster, might wait until Goosilon is ready)
