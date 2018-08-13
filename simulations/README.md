@@ -51,10 +51,27 @@ the score files,calculates the phenotypes and runs the association/formats resul
 This submit file changes each time I want to run a different analysis 
 because I change the python script in it, the json file I'm using and the starting folder.
 
+An example of this script:
+
+```
+#!/bin/bash
+#$ -l h_rt=6:10:30
+#$ -j y
+#$ -l h_vmem=16g
+#$ -cwd
+#$ -o /broad/finucanelab/ktashman/inrich_analyses/simulations/causal5_tau100/pipeline.log
+#$ -t 1-100
+
+source /broad/software/scripts/useuse
+reuse -q .anaconda-5.0.1
+
+/broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_5.0.1/bin/python /broad/finucanelab/ktashman/inrich_analyses/simulations/scripts/run_causal_pipeline.py --json /broad/finucanelab/ktashman/inrich_analyses/simulations/json/simulations_causal5_tau100.json --simulation-number ${SGE_TASK_ID} --starting-folder /broad/finucanelab/ktashman/inrich_analyses/simulations/causal5_tau100
+```
+
 Options for pipelines to run:
-    -- run_null_pipeline.py
-    -- run_causal_pipeline.py
-    -- run_causal_sparse_pipeline.py
+*run_null_pipeline.py
+*run_causal_pipeline.py
+*run_causal_sparse_pipeline.py
 
 These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, 
 `compute_sumstats.py` and `prune_sumstats.py`
@@ -89,4 +106,28 @@ Optional:
 Look at results using jupyter notebook and the ipynb scripts I have
 to plot p-value distributions and calculate FDRs.
 
+Critiques and Solutions:
 
+1. Having to make a directory each time for a new analysis:
+   - Solution: Add a flag to pipeline script that checks if the 
+     path already exists and if not creates the base folder
+     for the analysis and the rest of the subfolders
+
+2. The json file is clunky and confusing because of the full paths:
+   - Solution: Create an arg that is the base for the rest of the paths,
+     this way the rest of the paths can just be the flag for the new 
+     directory plus the folder name
+     - This might remove the need for a lot of the items in this json,
+       because once it has the base and the new directory name, the subfolders
+       are the same each analysis
+
+3. Should create one script for null,causal and causal_sparse simulations:
+   - Solution: This requires adding "sparse" and "pathway" which are flags 
+     for the `prep_for_simulations.py` script to the overall script, not sure
+     what the best way to do this is, perhaps doing a join where it can be
+     either a space or the command you want to add?
+
+4. Should revert to local S-LDSC at some point so that I'm not jumping
+   between the cluster and cloud:
+   - Solution: just do it. (My priority is quite low on the cluster,
+     might wait until Goosilon is ready)
