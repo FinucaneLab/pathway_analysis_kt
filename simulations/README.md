@@ -106,12 +106,12 @@ Optional:
 Look at results using jupyter notebook and the ipynb scripts I have
 to plot p-value distributions and calculate FDRs.
 
-Critiques and Solutions:
+#Critiques and Solutions:
 
-1. Having to make a directory each time for a new analysis:
-   - Solution: Add a flag to pipeline script that checks if the 
-     path already exists and if not creates the base folder
-     for the analysis and the rest of the subfolders
+##1. Having to make a directory each time for a new analysis:
+  ## - Solution: Add a flag to pipeline script that checks if the 
+  ##   path already exists and if not creates the base folder
+  ##   for the analysis and the rest of the subfolders
 
 2. The json file is clunky and confusing because of the full paths:
    - Solution: Create an arg that is the base for the rest of the paths,
