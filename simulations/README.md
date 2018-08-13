@@ -70,9 +70,9 @@ reuse -q .anaconda-5.0.1
 ```
 
 ##### Options for pipelines to run:
-*run_null_pipeline.py
-*run_causal_pipeline.py
-*run_causal_sparse_pipeline.py
+      *run_null_pipeline.py
+      *run_causal_pipeline.py
+      *run_causal_sparse_pipeline.py
 
 ##### These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, `compute_sumstats.py` and `prune_sumstats.py`
 
