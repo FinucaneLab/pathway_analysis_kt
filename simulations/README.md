@@ -3,20 +3,20 @@
 
 #### Step 1:
 
-##### Run this script once to remove duplicate SNPs and update rsids from the output of Hail 0.1:
+       * Run this script once to remove duplicate SNPs and update rsids from the output of Hail 0.1:
 
 ```qsub scripts/submit_fix_genotypes.sh```
 
 #### Step 2a:
 
-##### Make a directory for the newest simulation case you want to run:
+       * Make a directory for the newest simulation case you want to run:
 
 Example:
 ```mkdir causal5_sparse_tau100/```
 
 #### Step 2b:
 
-##### Make a json file modeled as such:
+       * Make a json file modeled as such:
 ```
 {
         "bed_files":"/broad/finucanelab/ktashman/inrich_analyses/simulations/ukbb/UKB_null_50k_imputed_",
@@ -46,13 +46,13 @@ Example:
 
 #### Step 3:
 
-##### Submit task array to run pipeline that creates varbeta files, the score files,calculates the phenotypes and runs the association/formats results:
+      * Submit task array to run pipeline that creates varbeta files, the score files,calculates the phenotypes and runs the association/formats results:
 
 ```qsub scripts/submit_causal5_sparse_pipeline.sh```
 
-##### This submit file changes each time I want to run a different analysis because I change the python script in it, the json file I'm using and the starting folder.
+      * This submit file changes each time I want to run a different analysis because I change the python script in it, the json file I'm using and the starting folder.
 
-##### An example of this script:
+      * An example of this script:
 
 ```
 #!/bin/bash
@@ -69,22 +69,22 @@ reuse -q .anaconda-5.0.1
 /broad/software/free/Linux/redhat_6_x86_64/pkgs/anaconda_5.0.1/bin/python /broad/finucanelab/ktashman/inrich_analyses/simulations/scripts/run_causal_pipeline.py --json /broad/finucanelab/ktashman/inrich_analyses/simulations/json/simulations_causal5_tau100.json --simulation-number ${SGE_TASK_ID} --starting-folder /broad/finucanelab/ktashman/inrich_analyses/simulations/causal5_tau100
 ```
 
-##### Options for pipelines to run:
-      *run_null_pipeline.py
-      *run_causal_pipeline.py
-      *run_causal_sparse_pipeline.py
+       * Options for pipelines to run:
+          *run_null_pipeline.py
+          *run_causal_pipeline.py
+          *run_causal_sparse_pipeline.py
 
-##### These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, `compute_sumstats.py` and `prune_sumstats.py`
+       * These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, `compute_sumstats.py` and `prune_sumstats.py`
 
 #### Step 4: 
 
-##### Run the Inrich analysis:
+        * Run the Inrich analysis:
 
 ```qsub scripts/run_inrich.sh json/simulations_causal5_tau100.json```
 
 #### Step 5:
 
-##### Copy the `*.sumstats.pruned` files and the independent genomic intervals from the Inrich analysis to local computer.
+        * Copy the `*.sumstats.pruned` files and the independent genomic intervals from the Inrich analysis to local computer.
 
 #### Step 6:
 
@@ -96,13 +96,13 @@ reuse -q .anaconda-5.0.1
 
 #### Step 7:
 
-##### Copy S-LDSC results to cluster, munge results:
+        * Copy S-LDSC results to cluster, munge results:
 
 ```python run_final_step.py --json json/simulations_causal5_tau100.json```
 
 #### Optional:
 
-##### Look at results using jupyter notebook and the ipynb scripts I have to plot p-value distributions and calculate FDRs.
+        * Look at results using jupyter notebook and the ipynb scripts I have to plot p-value distributions and calculate FDRs.
 
 #### **Critiques and Solutions** :
 
