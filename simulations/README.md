@@ -111,7 +111,7 @@ reuse -q .anaconda-5.0.1
 
 ##### 2. The json file is clunky and confusing because of the full paths:
   #####  - **Solution** : Create an arg that is the base for the rest of the paths, this way the rest of the paths can just be the flag for the new directory plus the folder name
-           -This might remove the need for a lot of the items in this json because once it has the base and the new directory name, the subfolders are the same each analysis
+           - This might remove the need for a lot of the items in this json because once it has the base and the new directory name, the subfolders are the same each analysis
 
 ##### 3. Should create one script for null,causal and causal_sparse simulations:
   #####  - **Solution** : This requires adding "sparse" and "pathway" which are flags  for the `prep_for_simulations.py` script to the overall script, not sure what the best way to do this is, perhaps doing a join where it can be either a space or the command you want to add?
