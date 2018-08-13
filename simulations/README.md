@@ -46,13 +46,11 @@ Example:
 
 #### Step 3:
 
-##### Submit task array to run pipeline that creates varbeta files, 
-the score files,calculates the phenotypes and runs the association/formats results:
+##### Submit task array to run pipeline that creates varbeta files, the score files,calculates the phenotypes and runs the association/formats results:
 
 ```qsub scripts/submit_causal5_sparse_pipeline.sh```
 
-##### This submit file changes each time I want to run a different analysis 
-because I change the python script in it, the json file I'm using and the starting folder.
+##### This submit file changes each time I want to run a different analysis because I change the python script in it, the json file I'm using and the starting folder.
 
 ##### An example of this script:
 
@@ -76,8 +74,7 @@ reuse -q .anaconda-5.0.1
 *run_causal_pipeline.py
 *run_causal_sparse_pipeline.py
 
-##### These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, 
-`compute_sumstats.py` and `prune_sumstats.py`
+##### These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, `compute_sumstats.py` and `prune_sumstats.py`
 
 #### Step 4: 
 
@@ -87,8 +84,7 @@ reuse -q .anaconda-5.0.1
 
 #### Step 5:
 
-##### Copy the `*.sumstats.pruned` files and the independent genomic intervals 
-from the Inrich analysis to local computer.
+##### Copy the `*.sumstats.pruned` files and the independent genomic intervals from the Inrich analysis to local computer.
 
 #### Step 6:
 
