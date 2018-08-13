@@ -1,17 +1,22 @@
-Step 1:
+## This is the simulation framework I've created to assess the statistical validity
+## of my GSE method. This framework uses a mix of modified versions of Ran Cui's code 
+## along with custom scripts specific to my project.
+
+
+### Step 1:
 
 Run this script once to remove duplicate SNPs and update rsids from the output of Hail 0.1:
 
 ```qsub scripts/submit_fix_genotypes.sh```
 
-Step 2a:
+### Step 2a:
 
 Make a directory for the newest simulation case you want to run:
 
 Example:
 ```mkdir causal5_sparse_tau100/```
 
-Step 2b:
+### Step 2b:
 
 Make a json file modeled as such:
 ```
@@ -41,7 +46,7 @@ Make a json file modeled as such:
 }
 ```
 
-Step 3:
+### Step 3:
 
 Submit task array to run pipeline that creates varbeta files, 
 the score files,calculates the phenotypes and runs the association/formats results:
@@ -76,18 +81,18 @@ Options for pipelines to run:
 These scripts call other scripts such as `prep_for_simulations.py`, `sim_pheno.py`, 
 `compute_sumstats.py` and `prune_sumstats.py`
 
-Step 4: 
+### Step 4: 
 
 Run the Inrich analysis:
 
 ```qsub scripts/run_inrich.sh json/simulations_causal5_tau100.json```
 
-Step 5:
+### Step 5:
 
 Copy the `*.sumstats.pruned` files and the independent genomic intervals 
 from the Inrich analysis to local computer.
 
-Step 6:
+### Step 6:
 
 Submit S-LDSC using dsub, requires making a new task file each time:
 
@@ -95,39 +100,39 @@ Submit S-LDSC using dsub, requires making a new task file each time:
 
 I should really add arguments to this.
 
-Step 7:
+### Step 7:
 
 Copy S-LDSC results to cluster, munge results:
 
 ```python run_final_step.py --json json/simulations_causal5_tau100.json```
 
-Optional:
+### Optional:
 
 Look at results using jupyter notebook and the ipynb scripts I have
 to plot p-value distributions and calculate FDRs.
 
-#Critiques and Solutions:
+## **Critiques and Solutions**:
 
-##1. Having to make a directory each time for a new analysis:
-  ## - Solution: Add a flag to pipeline script that checks if the 
-  ##   path already exists and if not creates the base folder
-  ##   for the analysis and the rest of the subfolders
+### 1. Having to make a directory each time for a new analysis:
+  #### - **Solution**: Add a flag to pipeline script that checks if the 
+  ####   path already exists and if not creates the base folder
+  ####   for the analysis and the rest of the subfolders
 
-2. The json file is clunky and confusing because of the full paths:
-   - Solution: Create an arg that is the base for the rest of the paths,
-     this way the rest of the paths can just be the flag for the new 
-     directory plus the folder name
-     - This might remove the need for a lot of the items in this json,
-       because once it has the base and the new directory name, the subfolders
-       are the same each analysis
+### 2. The json file is clunky and confusing because of the full paths:
+   #### - **Solution**: Create an arg that is the base for the rest of the paths,
+   ####  this way the rest of the paths can just be the flag for the new 
+   ####  directory plus the folder name
+   ####  - This might remove the need for a lot of the items in this json,
+   ####    because once it has the base and the new directory name, the subfolders
+   ####    are the same each analysis
 
-3. Should create one script for null,causal and causal_sparse simulations:
-   - Solution: This requires adding "sparse" and "pathway" which are flags 
-     for the `prep_for_simulations.py` script to the overall script, not sure
-     what the best way to do this is, perhaps doing a join where it can be
-     either a space or the command you want to add?
+### 3. Should create one script for null,causal and causal_sparse simulations:
+   #### - **Solution**: This requires adding "sparse" and "pathway" which are flags 
+   ####  for the `prep_for_simulations.py` script to the overall script, not sure
+   ####  what the best way to do this is, perhaps doing a join where it can be
+   ####  either a space or the command you want to add?
 
-4. Should revert to local S-LDSC at some point so that I'm not jumping
-   between the cluster and cloud:
-   - Solution: just do it. (My priority is quite low on the cluster,
-     might wait until Goosilon is ready)
+### 4. Should revert to local S-LDSC at some point so that I'm not jumping
+   ### between the cluster and cloud:
+   #### - **Solution**: just do it. (My priority is quite low on the cluster,
+   ####  might wait until Goosilon is ready)
