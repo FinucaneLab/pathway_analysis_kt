@@ -11,19 +11,12 @@ python make_genesets.py \
        --out-path /broad/finucanelab/ktashman/inrich_analyses/inrich_LDSC_genesets \
 
 ```
-
-Step 2:
-
 Copy the genesets from that folder to your local machine and upload them
 to the bucket and folder as specified in your make_genesets.py script
 
-Step 3:
+Step 2:
 
-Copy the submit.tsv file to local machine and run the dsub command script
-
-Step 4:
-
-While the LDSC pipeline is running, run the inrich analyses using run_inrich.py
+Run the Inrich analyses for your phenotype of interest with your gene sets of interest.
 
 ```
 python run_inrich.py \
@@ -31,6 +24,11 @@ python run_inrich.py \
        --assoc_snps /broad/finucanelab/ktashman/inrich_analyses/sumstats/scz_summary_stats.assoc_snps \
        --geneset-list /broad/finucanelab/ktashman/inrich_genesets/kegg.set
 ```
+
+Step 3:
+
+Copy the interval files to the cloud and create a submit.tsv file to run S-LDSC using dsub.
+
 
 Step 5:
 
