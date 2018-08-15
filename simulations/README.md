@@ -120,7 +120,7 @@ python /broad/finucanelab/ktashman/inrich_analyses/scripts/run_inrich.py --sumst
 
 #### Step 5:
 
-Copy the `*.sumstats.pruned` files and the independent genomic intervals from the Inrich analysis to local computer.
+Copy the `*.sumstats.pruned` files and the `*.intervals` files from the Inrich analysis to local computer.
 
 #### Step 6:
 
