@@ -13,7 +13,7 @@ Make a directory for the newest simulation case you want to run:
 
 Example:
 
-```mkdir causal5_sparse_tau100/```
+```mkdir causal5_tau100/```
 
 #### Step 2b:
 
@@ -50,7 +50,7 @@ Make a json file modeled as such:
 
 Submit task array to run pipeline that creates varbeta files, the score files,calculates the phenotypes and runs the association/formats results:
 
-```qsub scripts/submit_causal5_sparse_pipeline.sh```
+```qsub scripts/submit_causal5_pipeline.sh```
 
 This submit file changes each time I want to run a different analysis because I change the python script in it, the json file I'm using and the starting folder.
 
@@ -62,7 +62,7 @@ An example of this script:
 #$ -j y
 #$ -l h_vmem=16g
 #$ -cwd
-#$ -o /broad/finucanelab/ktashman/inrich_analyses/simulations/causal5_tau100/pipeline.log
+#$ -o /broad/finucanelab/ktashman/inrich_analyses/simulations/causal5_sparse_tau100/pipeline.log
 #$ -t 1-100
 
 source /broad/software/scripts/useuse
@@ -96,7 +96,7 @@ Copy the `*.sumstats.pruned` files and the independent genomic intervals from th
 
 Submit S-LDSC using dsub, requires making a new task file each time:
 
-```python make_tsv.py```
+```python make_tsv.py --num-sims 100```
 
 **I should really add arguments to this.** 
 
@@ -109,6 +109,7 @@ Copy S-LDSC results to cluster, munge results:
 #### Optional:
 
 Look at results using jupyter notebook and the ipynb scripts I have to plot p-value distributions and calculate FDRs.
+Quickly realizing I need to add functions to do the plotting/descriptions, have begun adding that to my ipynbs.
 
 #### **Critiques and Solutions** :
 
